@@ -1,63 +1,46 @@
-from flask import Flask, render_template, request
-import requests
-import uuid
+from flask import Flask, render_template, request, redirect, url_for
 import os
+import requests
 from dotenv import load_dotenv
 
-# Load environment variables from .env
-load_dotenv()
-
-# Flask app setup
+# Initialize Flask app
 app = Flask(__name__)
 
-# Load Azure Translator API settings from .env
-KEY = os.getenv('KEY')
-ENDPOINT = os.getenv('ENDPOINT')
-LOCATION = os.getenv('LOCATION')
+# Load environment variables from .env file
+load_dotenv()
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        # Get data from the form
-        original_text = request.form.get('text')
-        target_language = request.form.get('language')
+# Get API key and endpoint from environment variables
+TRANSLATOR_KEY = os.getenv("KEY")
+TRANSLATOR_ENDPOINT = os.getenv("ENDPOINT")
+TRANSLATOR_REGION = os.getenv("LOCATION")
 
-        # Build Azure Translator API request
-        path = '/translate?api-version=3.0'
-        target_language_parameter = "&to=" + target_language
-        constructed_url = ENDPOINT + path + target_language_parameter
+@app.route("/", methods=["GET", "POST"])
+def translate():
+    translated_text = ""
+    if request.method == "POST":
+        text = request.form.get("text")
+        language = request.form.get("language")
+        translated_text = get_translation(text, language)
+    return render_template("index.html", translated_text=translated_text)
 
-        # API headers
-        headers = {
-            'Ocp-Apim-Subscription-Key': KEY,
-            'Ocp-Apim-Subscription-Region': LOCATION,
-            'Content-type': 'application/json',
-            'X-ClientTraceId': str(uuid.uuid4())
-        }
+def get_translation(text: str, target_language: str):
+    """Function to call Azure Translator API and get the translation"""
+    url = f"{TRANSLATOR_ENDPOINT}/translate?api-version=3.0&to={target_language}"
 
-        # API request body
-        body = [{'text': original_text}]
+    headers = {
+        "Ocp-Apim-Subscription-Key": TRANSLATOR_KEY,
+        "Ocp-Apim-Subscription-Region": TRANSLATOR_REGION,
+        "Content-Type": "application/json"
+    }
 
-        # Make API call
-        try:
-            translator_request = requests.post(constructed_url, headers=headers, json=body)
-            translator_request.raise_for_status()
-            translator_response = translator_request.json()
+    body = [{"text": text}]
 
-            # Extract translated text
-            translated_text = translator_response[0]['translations'][0]['text']
+    response = requests.post(url, headers=headers, json=body)
 
-            # Pass the result to the template
-            return render_template(
-                'results.html',
-                original_text=original_text,
-                translated_text=translated_text,
-                target_language=target_language
-            )
-        except Exception as e:
-            return f"An error occurred: {e}"
+    if response.status_code == 200:
+        return response.json()[0]["translations"][0]["text"]
+    else:
+        return "Error: Could not translate text."
 
-    return render_template('index.html')
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
