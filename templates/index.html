@@ -3,33 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Translation</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" media="all">
-    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <title>AI Powered Translator</title>
+    <link rel="stylesheet" href="../static/styles.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-    <div class="container">
-        <h2>Text Translation</h2>
-        <form method="POST" action="/">
-            <textarea name="text" placeholder="Enter text to translate..."></textarea>
-            <select name="language" required>
-                <option value="">Translate to</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-                <option value="de">German</option>
-                <option value="it">Italian</option>
-                <option value="pt">Portuguese</option>
-            </select>
-            <button type="submit">Translate</button>
+<div class="container">
+    <h1 class="title">AI powered Translator</h1>
+    <div class="translator-box">
+        <form id="translation-form" method="POST" class="translator-form">
+           <div class="input-area">
+                <textarea id="originalText" name="text" placeholder="Enter text to translate" required>{{ original_text }}</textarea>
+                    <div class="controls">
+                        <select id="languageSelect" name="language" required></select>
+                        <div class="button-container">
+                            <button type="submit">Translate</button>
+                             <button  id="voiceInputButton"  class ="voice-button"  ><i class="fas fa-microphone"></i> Voice Input </button>
+                         </div>
+                     </div>
+                </div>
+               {% if translated_text %}
+               <div class="output-area">
+                <h2>Translation</h2>
+                    <div id="translatedResult" class="translated-result">{{ translated_text }}
+                          <button class="speak-button" title="Speak"></button>
+                    </div>
+
+               </div>
+               {% endif %}
         </form>
-
-        <!-- Display Translated Text -->
-        <div class="results">
-            <p class="translated">{{ translated_text }}</p>
-        </div>
-
-        <button id="dark-mode-toggle">Toggle Dark Mode</button>
-        <button id="voice-input">🎤 Speak</button>
     </div>
+     <div id="error-message" class="error-message" style="display: none;"></div>
+</div>
+<script src="../static/index.js"></script>
 </body>
 </html>

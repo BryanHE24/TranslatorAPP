@@ -1,304 +1,274 @@
-/* Reset some default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Set body background and text color */
-  body {
-    /*background: linear-gradient(135deg, #6a11cb, #2575fc);*/
-    visibility: visible;
-    background: #2575fc;
-    color: #fff;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow: hidden;
-    font-size: 16px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  /* Add a rounded container for content */
-  .container {
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 15px;
-    padding: 30px;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    backdrop-filter: blur(10px);
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Title of the app */
-  h1 {
-    font-size: 50px;
-    font-weight: bold;
-    margin-bottom: 120px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    transition: color 0.3s ease;
-  }
-  
-  /* Styling for form */
-  form {
+/* Reset and Common styles */
+:root {
+  --background-color: #000;
+  /* Light Background */
+  --text-color: #333;
+  --secondary-color: #2575fc;
+  /* Accent color */
+  --secondary-light: #fff;
+  /* subtle for borders and placeholders */
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* set sizes based in content-box */
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  /*Modern Helvetica Font */
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--background-color);
+  /* Set default background  */
+  color: var(--text-color);
+  /* Set base color for fonts*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Added to keep animation*/
+}
+
+/* general container  */
+.container {
+  width: 80%;
+  /*Set with default value for big screens  */
+  max-width: 600px;
+  /*max width to avoid stretching too much   */
+  padding: 20px;
+  border-radius: 8px;
+  /*Rounded Corners, soft looks   */
+}
+
+.translator-box {
+  padding: 30px;
+  /* padding between container content */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7) /* Set subtle  shadow*/
+}
+.translator-form {
+
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-top: 50px;
-  }
-  
-/* Styling for text input box */
+
+}
+/* App title Styles*/
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  /* Bigger header sizes for impact and readability */
+  margin-bottom: 30px;
+  /* set margin bottom for clear transition to form   */
+}
+
+/* Input Area Styles */
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* Text area styles for user Input  */
 textarea {
-    visibility: visible;
-    width: 100%;
-    height: 150px;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 16px;
-    background-color: #f5f5f5;
-    color: #333;
-    transition: all 0.3s ease;
+  display: block;
+  /* make block so input occupy the whole width  */
+  width: 100%;
+  /*  whole container width  */
+  border: 2px solid var(--secondary-color);
+  padding: 12px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  resize: vertical;
+  outline: none;
+  /* remove standard input style on text input */
+}
+
+textarea::placeholder {
+  color: #000;
 }
 
 textarea:focus {
-    background-color: #e6e6e6;
-    outline: none;
-    box-shadow: 0 0 5px #2575fc;
+  border-color: var(--secondary-color)
 }
 
-input[type="text"], textarea {
-    padding: 15px;  /* Added more padding for a comfortable feel */
-    font-size: 18px;  /* Larger font size for readability */
-    border: none;
-    border-radius: 10px;  /* Rounded corners for a soft look */
-    background-color: #f5f5f5;  /* Light background color */
-    color: #333;  /* Dark text for contrast */
-    width: 100%;  /* Make the input field take up the full width */
-    min-height: 100px;  /* Set a minimum height for the input field */
-    resize: none;  /* Disable resizing the textarea */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
-    transition: all 0.3s ease;  /* Smooth transition effect on focus */
-}
-
-/* Styling for input on focus */
-input[type="text"]:focus, textarea:focus {
-    background-color: #e6e6e6;  /* Slightly darker background on focus */
-    outline: none;
-    box-shadow: 0 0 8px #2575fc;  /* Blue shadow on focus for emphasis */
-}
-
-/* Placeholder styling */
-input[type="text"]::placeholder, textarea::placeholder {
-    color: #aaa;  /* Lighter color for placeholder text */
-    font-style: italic;  /* Italic style for placeholder text */
-}
-
-/* Add a border when the input is focused */
-input[type="text"]:focus::placeholder, textarea:focus::placeholder {
-    color: #2575fc;  /* Change placeholder text color to match the focus border */
-}
-
-/* Styling for select dropdown */
+/* Drop down selection for translations Styles */
 select {
-    visibility: visible;
-    padding: 15px;  /* Padding for a spacious dropdown */
-    font-size: 18px;  /* Larger font size for readability */
-    border: none;
-    border-radius: 10px;  /* Rounded corners for consistency */
-    background-color: #333;  /* Light background color */
-    color: #333;  /* Dark text for contrast */
-    width: 100%;  /* Full width to match input fields */
-    min-height: 50px;  /* Set a minimum height for consistency */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
-    transition: all 0.3s ease;  /* Smooth transition effect */
+  display: block;
+  /* make select box occupy the whole width  */
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid var(--secondary-light);
+  border-radius: 5px;
+  cursor: pointer;
+  background: var(--background-color);
+  /*set background of the option   */
+  outline: none;
+  /* remove standard select style on focus */
 }
 
-/* Styling for select dropdown on focus */
-select:focus {
-    background-color: #333;  /* Darker background on focus */
-    outline: none;
-    box-shadow: 0 0 8px #2575fc;  /* Blue shadow on focus to match theme */
-}
-
-/* Styling for the dropdown options */
 select option {
-    background-color: #fff;  /* Light background for options */
-    color: #333;  /* Dark text for options */
-    padding: 10px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+  background: #000
+  /*make backgrounds be  visible with option*/
 }
 
-/* Change background color of option when hovered */
-select option:hover {
-    background-color: #f2b600;  /* Highlight on hover with a warm color */
-    color: #333;  /* Maintain contrast with text */
+select:focus {
+  border-color: var(--secondary-color)
+  /* sets a border highlight when  selector box are active   */
 }
 
-/* Optional: Styling for placeholder option */
-select option:first-child {
-    color: #333;  /* Lighter color for placeholder option */
+/* Controls container */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+/* Buttons Styling for translation actions */
+button {
+  cursor: pointer;
+  /* show as button interaction  */
+  padding: 12px;
+  border: none;
+  /* clear default values  */
+  border-radius: 4px;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+  /* smooth color change action*/
 }
 
-  /* Button styles */
-  button {
-    padding: 12px 20px;
-    font-size: 18px;
+.button-container {
+  margin: 20px auto 0;
+  text-align: center;
+  /* center button   */
+}
+
+/* Styles translation text  area */
+
+/* Styles for translated text block */
+.output-area {
+  background-color: #1f1f1f;
+  color: var(--secondary-light);
+  border: 2px solid var(--secondary-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.output-area:hover {
+  transform: translateY(-5px);
+  background-color: #2a2a2a;
+}
+
+.output-area h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+}
+
+.translated-result {
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1.8;
+  color: var(--secondary-light);
+  word-wrap: break-word;
+  /* Prevents long words from breaking layout */
+  white-space: pre-wrap;
+  /* Preserve spacing and line breaks */
+   display: flex;
+   align-items: center; /*Align vertically in center*/
+   justify-content: center; /*Align horizontal in center*/
+    gap: 5px; /* Small gap between button and text */
+}
+
+
+/* speaker button area and settings  */
+.speak-button {
+  background: none;
+  /* clear all background default setting from browser*/
+  border: none;
+  /*clear default border on buttons*/
+  cursor: pointer;
+  /*set cursor as hand action   */
+  color: var(--text-color);
+  /* keep  speak color button  based  on page */
+  font-size: 1em;
+  /*keep text scale */
+  padding: 0px;
+  margin-left: 5px;
+  /*separate translations by 5px and text translations  */
+}
+
+.speak-button i {
+  pointer-events: none;
+  /* make all icon ignore events, making user use the buttons actions and not on icon itself*/
+}
+
+.speak-button:hover {
+  /*Set a darker icon hover */
+  color: grey;
+  /* Makes it little different with highlight hover   */
+}
+
+/* Default actions for the elements button translation etc.. */
+.translated-text p,
+button {
+  /* general actions with buttons for all types */
+  background: var(--secondary-color);
+  /* default button color*/;
+  color: var(--text-color)
+}
+
+button:hover {
+  background-color: var(--secondary-light);
+  /*   small contrast background color*/
+}
+
+/* Error message style */
+.error-message{
+    color: red;
+    text-align: center;
+    margin-top: 10px;
     font-weight: bold;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #2575fc, #6a11cb);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  button:hover {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    transform: scale(1.1);
-  }
-  
-  button:focus {
-    outline: none;
-    box-shadow: 0 0 10px #2575fc;
-  }
-  
-  /* Translated text styling */
-  /* Increase space between the translate button and the translated text */
-.results {
-    margin-top: 40px;  /* Increased margin for more space */
-    padding: 30px;  /* Added more padding for a comfortable layout */
-    border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
 }
 
-/* Styling for the translated text to make it bigger and beautiful */
-.results p {
-    font-size: 22px;  /* Increased font size */
-    line-height: 1.6;  /* Adjusted line height for readability */
-    text-align: center;  /* Center the text */
-    color: #fff;  /* Ensuring the text is readable */
-    font-family: 'Arial', sans-serif; /* Clean font for readability */
+
+/* Responsive adjustments (You can expand as you like*/
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    /* sets default for container responsive */
+    max-width: 500px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  /* Adjust heading sizes */
 }
 
-/* Add some emphasis to the translated text */
-.results .translated {
-    font-size: 26px;  /* Make the translated text larger */
-    font-weight: bold;
-    color: #fff;  /* Beautiful golden color for emphasis */
-    text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.4);  /* Soft shadow for a glowing effect */
-    margin-top: 10px;  /* Space between the original and translated text */
-    padding: 10px;  /* Adding some padding for a better visual */
-    border-radius: 8px;  /* Rounded edges for a softer look */
-    background-color: rgba(0, 0, 0, 0.4);  /* Subtle background to make it stand out */
-}
+@media (max-width: 500px) {
+  /* small mobile defaults*/
+  .container {
+    width: 98%;
+  }
 
-/* Transition effect for when the results section appears */
-.results {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 0.5s forwards;
+  /* adjust text when viewport changes   */
+  h1 {
+    font-size: 1.6rem;
+  }
 }
-.translated {
-    visibility: hidden; /* Hide translated text by default */
-}
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-  
-  /* Dark Mode Toggle */
-  .dark-mode-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #333;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-  }
-  
-  .dark-mode-toggle:hover {
-    background: #f2b600;
-    color: #333;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .container {
-      padding: 20px;
-    }
-  
-    h1 {
-      font-size: 28px;
-    }
-  
-    input[type="text"], select {
-      font-size: 14px;
-    }
-  
-    button {
-      font-size: 16px;
-    }
-  }
-  
-  @media (max-width: 500px) {
-    h1 {
-      font-size: 24px;
-    }
-  
-    input[type="text"], select {
-      font-size: 12px;
-    }
-  
-    button {
-      font-size: 14px;
-    }
-  
-    .container {
-      width: 100%;
-    }
-  }
-  
-  /* Dark Mode Styles */
-  body.dark-mode {
-    background: linear-gradient(135deg, #1c1c1c, #333);
-    color: #fff;
-  }
-  
-  .container.dark-mode {
-    background: rgba(0, 0, 0, 0.8);
-  }
-  
-  h1.dark-mode {
-    color: #f2f2f2;
-  }
-  
-  input[type="text"].dark-mode, select.dark-mode {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  button.dark-mode {
-    background: linear-gradient(135deg, #333, #1c1c1c);
-  }
-  
-  /* Add dark mode styles for the dark-mode toggle button */
-  .dark-mode-toggle.dark-mode {
-    background: #f2b600;
-    color: #333;
-  }
-  
