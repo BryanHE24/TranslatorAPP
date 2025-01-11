@@ -42,8 +42,9 @@ A simple yet elegant web application for text translation, leveraging the Azure 
       KEY=<Your Azure Translator API Key>
       ENDPOINT=<Your Azure Translator API Endpoint>
       LOCATION=<Your Azure Translator API Location>
-      Important: Get Azure API Key, Location , Endpoints to be used inside file.
 ```
+*   Important: Note that for this project i used the azure translate free tier resource
+
 3. Install Dependencies: Navigate to the project folder on your terminal, to set proper configuration
 ```bash 
 pip install flask requests python-dotenv
@@ -54,9 +55,14 @@ python app.py
 ```
 ## Usage
    1) Enter Text: Input the text you want to translate into the provided textarea box.
-   2) Select Language: Choose the desired target language from the dropdown selection list (Spanish, French, German, Italian, or Portuguese, or set the   
-      new language by sending to azure, using python).
+   2) Select Language: Choose the desired target language from the dropdown selection list (Spanish, French, German, Italian, or Portuguese, etc).
    3) Translate: click the translate button to see the resulting translated text in the layout/container set for it
    4) Speech Input Press "Voice Input" button, speak after is activated, will enable text input and you can use text translations from speech (Chrome- 
       Based browsers with correct implementations needed, might fail in old versions/different settings of same browsers ). Make a try if recognition and 
       proper browser with configurations exist (otherwise errors from js can be found)
+## Images
+![image](https://github.com/user-attachments/assets/b4eabb2f-844a-4820-a1ee-07249844da4e)
+![image](https://github.com/user-attachments/assets/ee517431-5900-4b4d-8e7c-c2ed53f6c105)
+![image](https://github.com/user-attachments/assets/c9281cfe-d6ed-4fc5-b825-19adb22816ae)
+
+
